@@ -4,7 +4,7 @@ const { window } = new JSDOM("")
 const $ = require("jquery")(window)
 const path = require('path')
 const fetchArt = require('./utils/fetchArt.js')
-
+const qtAnalysis = require('./utils/qtAnalysis.js')
 
 let gens = [
     'axe', 'bossa-nova', 'forro', 'funk', 'funk-carioca',
@@ -117,4 +117,4 @@ const main = async () => {
     }
 }
 
-main()
+// main()
