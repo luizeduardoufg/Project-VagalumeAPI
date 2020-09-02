@@ -1,17 +1,24 @@
 {
-  "name": "vagalumeAPI",
+  "name": "Project-VagalumeAPI",
   "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
+  "description": "#### Node version: 12.18.3 (nvm href=\"https://github.com/nvm-sh/nvm\") #### Operational system: * Kubuntu 20.04.1 LTS",
+  "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luizeduardoufg/Project-VagalumeAPI.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luizeduardoufg/Project-VagalumeAPI/issues"
+  },
+  "homepage": "https://github.com/luizeduardoufg/Project-VagalumeAPI#readme",
   "dependencies": {
-    "got": "^11.5.2",
-    "jquery": "^3.5.1",
+    "got": "^11.6.0",
     "jsdom": "^16.4.0"
   }
 }
