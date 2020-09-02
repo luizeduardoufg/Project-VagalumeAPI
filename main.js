@@ -41,6 +41,41 @@ const requestMusic = (artist, song) => {
     })
 }
 
+const writeFileSync = (gen, art, songName, mus) => {
+    let songPath = path.join(__dirname, 'Genders', gen, art, `${songName.replace(slash, '')}.json`)
+    let artFolderPath = path.join(__dirname, 'Genders', gen, art)
+    if (mus[1] != 1){
+        console.log(`The music ${songName} is not brazilian.`)
+        songPath = path.join(__dirname, 'Genders', gen, art, `${songName.replace(slash, '')}.txt`)
+    }
+    let music = {
+        artist: art,
+        song: {
+            name: songName,
+            text: mus[0],
+            lang: map(mus[1])
+        }
+    }
+
+    if (fs.existsSync(artFolderPath)) {
+        try{
+            fs.writeFileSync(songPath, JSON.stringify(music, null, 4))
+            console.log('Song ' + songName + ' from artist ' + art + ' written!')
+        }catch(err){
+            console.log('Error writing file: ', err.message)
+        }
+    } else {
+        try{
+            fs.mkdirSync(artFolderPath, {recursive: true})
+            fs.writeFileSync(songPath, JSON.stringify(music, null, 4))
+            console.log('Song ' + songName + ' from artist ' + art + ' written!')
+
+        }catch(err){
+            console.log('Error writing file: ', err.message)
+        }
+    }
+}
+
 
 const writeFile = (gen, art, songName, mus) => {
     let songPath = path.join(__dirname, 'Genders', gen, art, `${songName.replace(slash, '')}.json`)
@@ -107,7 +142,8 @@ const main = async () => {
                     await delay(3000).then(async () => {
                         let mus = await requestMusic(art, song.desc)
                                             .catch(err => console.log('Error requesting lyrics', err.message))
-                        writeFile(gen, art, song.desc, mus)
+                        //writeFile(gen, art, song.desc, mus)
+                        writeFileSync(gen,art,song.desc,mus)
                     }).catch(err => console.log('Error on delay function: ', err.message))
                 }
             }catch(e){
