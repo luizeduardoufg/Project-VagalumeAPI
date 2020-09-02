@@ -1,32 +1,20 @@
-const fs = require('fs')
-const { JSDOM } = require("jsdom")
-const { window } = new JSDOM("")
-const $ = require("jquery")(window)
-const path = require('path')
-const fetchArt = require('./utils/fetchArt.js')
-const qtAnalysis = require('./utils/qtAnalysis.js')
-const https = require('https')
+//Imports
+const https              = require('https')
+const path               = require('path')
+const fs                 = require('fs')
+const fetchArt           = require('./utils/fetchArt.js')
+const qtAnalysis         = require('./utils/qtAnalysis.js')
 
-// let gens = [
-//     'axe', 'bossa-nova', 'forro', 'funk', 'funk-carioca',
-//     'gospel', 'mpb', 'pagode', 'rap', 'samba', 'sertanejo'
-// ]
 
+//Variables
 let gens = [
-    'forro', 'funk', 'funk-carioca',
+    'axe', 'bossa-nova', 'forro', 'funk', 'funk-carioca',
     'gospel', 'mpb', 'pagode', 'rap', 'samba', 'sertanejo'
 ]
 let replacer = RegExp(' ', 'g')
 let slash = RegExp('/', 'g')
 
-const requestArtSongs = (artist) => {
-    return $.getJSON("https://www.vagalume.com.br/" + artist + "/index.js").then(
-        function (data) {
-            return data.artist.lyrics.item
-        }
-    )
-}
-
+//Functions
 const map = (lang) => {
     switch (lang) {
         case 1: return 'pt'
@@ -36,51 +24,63 @@ const map = (lang) => {
     }
 }
 
-const requestMusic = (art, song) => {
-    let url = "https://api.vagalume.com.br/search.php"
-                + "?art=" + art
-                + "&mus=" + song
-                + "&apikey={key}"
+const requestArtSongs = (art) => {
+    let url = "https://www.vagalume.com.br/" + art + "/index.js"
     return new Promise((resolve, reject) => {
-        https.get(url, (res) => {
+        https.get(url, res => {
             let dataChunks = []
-    
-            res.on('data', (fragments) => {
-                dataChunks.push(fragments)
+            res.on('data', chunk => {
+                dataChunks.push(chunk)
             })
-    
+
             res.on('end', () => {
                 let body = Buffer.concat(dataChunks)
-                var mus
-                body = JSON.parse(body)
                 try{
-                    mus = [body.mus[0].text, body.mus[0].lang]
-                    resolve(mus)
-                }
-                catch(err){
-                    console.log('Error: music not found')
-                    resolve(null)
+                    body = JSON.parse(body)
+                    resolve(body.artist.lyrics.item)
+                }catch(err){
+                    reject(err)
                 }
             })
-    
-            res.on('error', (err) => {
+
+            res.on('error', err => {
                 reject(err)
             })
         })
     })
 }
 
-// const requestMusic = (artist, song) => {
-//     return $.getJSON(
-//         "https://api.vagalume.com.br/search.php"
-//         + "?art=" + artist
-//         + "&mus=" + song
-//         + "&apikey={key}"
-//     )
-//     .then(function (data) {
-//         return [data.mus[0].text, data.mus[0].lang]
-//     })
-// }
+const requestMusic = (art, song) => {
+    let url = "https://api.vagalume.com.br/search.php"
+                + "?art=" + art
+                + "&mus=" + song
+                + "&apikey={key}"
+    return new Promise((resolve, reject) => {
+        https.get(url, res => {
+            let dataChunks = []
+    
+            res.on('data', chunk => {
+                dataChunks.push(chunk)
+            })
+    
+            res.on('end', () => {
+                let body = Buffer.concat(dataChunks)
+                try{
+                    body = JSON.parse(body)
+                    let mus = [body.mus[0].text, body.mus[0].lang]
+                    resolve(mus)
+                }
+                catch(err){
+                    reject(err)
+                }
+            })
+    
+            res.on('error', err => {
+                reject(err)
+            })
+        })
+    })
+}
 
 const writeFileSync = (gen, art, songName, mus) => {
     let songPath = path.join(__dirname, 'Genders', gen, art, `${songName.replace(slash, '')}.json`)
@@ -183,9 +183,7 @@ const main = async () => {
                     await delay(3000).then(async () => {
                         let mus = await requestMusic(art, song.desc)
                                         .catch(err => console.log('Error requesting lyrics', err.message))
-                        // writeFile(gen, art, song.desc, mus)
-                        if (mus)
-                            writeFileSync(gen,art,song.desc,mus)
+                        writeFileSync(gen,art,song.desc,mus)
                     }).catch(err => console.log('Error on delay function: ', err.message))
                 }
             }catch(e){
