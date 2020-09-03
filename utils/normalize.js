@@ -1,10 +1,10 @@
-const getLastLine = (str) => {
+const _getLastLine = (str) => {
     let split = str.split('\n')
     return split[split.length-1]
 }
 
 const normalize = (str) => {
-    let lastLine = getLastLine(str)
+    let lastLine = _getLastLine(str)
     let split = lastLine.split('')
     let alpha =  /^[a-zà-ú]+$/i
     let pontuation = []
@@ -30,4 +30,4 @@ const normalize = (str) => {
     }
 }
 
-exports.normalize = normalize
+module.exports = {normalize: normalize}

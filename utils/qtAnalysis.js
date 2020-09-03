@@ -18,5 +18,7 @@ const countLetters = async (str) => {
     return letters
 }
 
-exports.countWords = countWords
-exports.countLetters = countLetters
+module.exports = {
+    countWords: countWords,
+    countLetters: countLetters
+}
