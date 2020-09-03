@@ -4,6 +4,7 @@ const path               = require('path')
 const fs                 = require('fs')
 const fetchArt           = require('./utils/fetchArt.js')
 const qtAnalysis         = require('./utils/qtAnalysis.js')
+const normalize          = require('./utils/normalize.js')
 
 
 //Variables
@@ -193,4 +194,22 @@ const main = async () => {
     }
 }
 
-main()
+// main()
+
+const foo = () => {
+    let arts = ['Leandro e As Abusadas']
+    for(let art of arts){
+        let artPath = path.join(__dirname, 'Genders', 'funk-carioca', art)
+        readSongs(artPath)
+    }
+    
+}
+
+const readSongs = (dir) => {
+    for(let artSong of fs.readdirSync(dir)){
+        let data = JSON.parse(fs.readFileSync(path.join(dir, artSong)).toString())
+        normalize.normalize(data.song.text)  
+    }
+}
+
+foo()

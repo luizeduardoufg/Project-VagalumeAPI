@@ -9,7 +9,7 @@ const countWords = async (str) => {
     return words
 }
 
-const countLetters = async(str) => {
+const countLetters = async (str) => {
     let exp =  /^[a-z]+$/i
     let letters = 0
     for(let i=0; i<str.split('').length; i++)
