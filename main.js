@@ -1,10 +1,10 @@
 //Imports
 const path               = require('path')
 const fs                 = require('fs')
-const qtAnalysis         = require('./utils/qtAnalysis.js')
-const normalize          = require('./utils/normalize.js')
-const utils              = require('./utils/utils.js')
-const api                = require('./utils/api.js')
+const qtAnalysis         = require('./modules/qtAnalysis.js')
+const normalize          = require('./modules/normalize.js')
+const utils              = require('./modules/utils.js.js')
+const api                = require('./modules/api.js.js')
 
 
 //Variables
