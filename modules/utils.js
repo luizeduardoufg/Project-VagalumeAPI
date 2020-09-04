@@ -1,4 +1,5 @@
 const path = require('path')
+const fs   = require('fs')
 
 
 const mapLang = (lang) => {
@@ -10,12 +11,14 @@ const mapLang = (lang) => {
     }
 }
 
+let slash = RegExp('/', 'g')
+
 const writeFileSync = (gen, art, songName, mus) => {
-    let songPath = path.join(__dirname, 'Genders', gen, art, `${songName.replace(slash, '')}.json`)
-    let artFolderPath = path.join(__dirname, 'Genders', gen, art)
+    let songPath = path.join(process.cwd(), 'Genders', gen, art, `${songName.replace(slash, '')}.json`)
+    let artFolderPath = path.join(process.cwd(), 'Genders', gen, art)
     if (mus[1] != 1){
         console.log(`The music ${songName} is not brazilian.`)
-        songPath = path.join(__dirname, 'Genders', gen, art, `${songName.replace(slash, '')}.txt`)
+        songPath = path.join(process.cwd(), 'Genders', gen, art, `${songName.replace(slash, '')}.txt`)
     }
     let music = {
         artist: art,
@@ -47,11 +50,11 @@ const writeFileSync = (gen, art, songName, mus) => {
 
 
 const writeFile = (gen, art, songName, mus) => {
-    let songPath = path.join(__dirname, 'Genders', gen, art, `${songName.replace(slash, '')}.json`)
-    let artFolderPath = path.join(__dirname, 'Genders', gen, art)
+    let songPath = path.join(process.cwd(), 'Genders', gen, art, `${songName.replace(slash, '')}.json`)
+    let artFolderPath = path.join(process.cwd(), 'Genders', gen, art)
     if (mus[1] != 1){
         console.log(`The music ${songName} is not brazilian.`)
-        songPath = path.join(__dirname, 'Genders', gen, art, `${songName.replace(slash, '')}.txt`)
+        songPath = path.join(process.cwd(), 'Genders', gen, art, `${songName.replace(slash, '')}.txt`)
     }
     let music = {
         artist: art,

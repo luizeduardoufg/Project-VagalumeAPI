@@ -1,9 +1,12 @@
+const path          = require('path')
+const fs            = require('fs')
+
 const _getLastLine = (str) => {
     let split = str.split('\n')
     return split[split.length-1]
 }
 
-const normalize = (str) => {
+const _normalize = (str) => {
     let lastLine = _getLastLine(str)
     let split = lastLine.split('')
     let alpha =  /^[a-zà-ú]+$/i
@@ -17,7 +20,8 @@ const normalize = (str) => {
     let pontLength = pontuation.length-1
 
     if (
-        ( pontuation[pontLength] == ')' 
+        ( 
+           pontuation[pontLength] == ')' 
         || pontuation[pontLength] == ']' 
         || pontuation[pontLength] == '}'
     )){
@@ -29,5 +33,21 @@ const normalize = (str) => {
         console.log(lastLine, pontuation)
     }
 }
+
+const normalize = (gens) => {
+    for (let gen of gens){
+        let genPath = path.join(process.cwd(), 'Genders', gen)
+        let arts = fs.readdirSync(genPath)
+        for(let art of arts){
+            let artPath = path.join(process.cwd(), 'Genders', gen, art)
+            for(let artSong of fs.readdirSync(artPath)){
+                let data = JSON.parse(fs.readFileSync(path.join(artPath, artSong)).toString())
+                _normalize(data.song.text)  
+            }
+        }
+    }
+    
+}
+
 
 module.exports = {normalize: normalize}

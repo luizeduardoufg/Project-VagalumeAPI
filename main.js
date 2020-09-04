@@ -3,19 +3,20 @@ const path               = require('path')
 const fs                 = require('fs')
 const qtAnalysis         = require('./modules/qtAnalysis.js')
 const normalize          = require('./modules/normalize.js')
-const utils              = require('./modules/utils.js.js')
-const api                = require('./modules/api.js.js')
+const utils              = require('./modules/utils.js')
+const api                = require('./modules/api.js')
 
 
 //Variables
-let gens = [
-    'axe', 'bossa-nova', 'forro', 'funk', 'funk-carioca',
-    'gospel', 'mpb', 'pagode', 'rap', 'samba', 'sertanejo'
-]
+// let gens = [
+//     'axe', 'bossa-nova', 'forro', 'funk', 'funk-carioca',
+//     'gospel', 'mpb', 'pagode', 'rap', 'samba', 'sertanejo'
+// ]
+
+let gens = ['gospel', 'mpb', 'pagode', 'rap', 'samba', 'sertanejo']
 let replacer = RegExp(' ', 'g')
 let slash = RegExp('/', 'g')
 
-//Functions
 const main = async () => {
     for (let gen of gens){
         console.log(`Gender> ${gen}`)
@@ -47,22 +48,5 @@ const main = async () => {
     }
 }
 
-const foo = () => {
-    for (let gen of gens){
-        let genPath = path.join(__dirname, 'Genders', gen)
-        let arts = fs.readdirSync(genPath)
-        for(let art of arts){
-            let artPath = path.join(__dirname, 'Genders', gen, art)
-            for(let artSong of fs.readdirSync(artPath)){
-                let data = JSON.parse(fs.readFileSync(path.join(artPath, artSong)).toString())
-                normalize.normalize(data.song.text)  
-            }
-        }
-    }
-    
-}
-
-
-// main()
-// foo()
-
+main()
+// normalize.normalize(gens)
