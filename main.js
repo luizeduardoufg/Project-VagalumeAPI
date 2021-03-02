@@ -8,12 +8,11 @@ const api                = require('./modules/api.js')
 
 
 //Variables
-// let gens = [
-//     'axe', 'bossa-nova', 'forro', 'funk', 'funk-carioca',
-//     'gospel', 'mpb', 'pagode', 'rap', 'samba', 'sertanejo'
-// ]
+let gens = [
+    'axe', 'bossa-nova', 'forro', 'funk', 'funk-carioca',
+    'gospel', 'mpb', 'pagode', 'rap', 'samba', 'sertanejo'
+]
 
-let gens = ['gospel', 'mpb', 'pagode', 'rap', 'samba', 'sertanejo']
 let replacer = RegExp(' ', 'g')
 let slash = RegExp('/', 'g')
 
@@ -48,5 +47,5 @@ const main = async () => {
     }
 }
 
-main()
-// normalize.normalize(gens)
+// main()
+normalize.normalize(gens)

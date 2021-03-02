@@ -105,6 +105,9 @@ dist
 
 #Folders
 Genders/
+Article/
 
 #Files
 notas.txt
+*.avi
+*.zip
