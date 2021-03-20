@@ -1,5 +1,5 @@
-const path          = require('path')
-const fs            = require('fs')
+import { join } from 'path'
+import { readdirSync, readFileSync } from 'fs'
 
 const _getLastLine = (str) => {
     let split = str.split('\n')
@@ -20,9 +20,9 @@ const _normalize = (str) => {
     let pontLength = pontuation.length-1
 
     if (
-        ( 
-           pontuation[pontLength] == ')' 
-        || pontuation[pontLength] == ']' 
+        (
+           pontuation[pontLength] == ')'
+        || pontuation[pontLength] == ']'
         || pontuation[pontLength] == '}'
     )){
         lastLine = lastLine.slice(0,lastLine.length) + '.'
@@ -36,18 +36,18 @@ const _normalize = (str) => {
 
 const normalize = (gens) => {
     for (let gen of gens){
-        let genPath = path.join(process.cwd(), 'Genders', gen)
-        let arts = fs.readdirSync(genPath)
+        let genPath = join(process.cwd(), 'Genders', gen)
+        let arts = readdirSync(genPath)
         for(let art of arts){
-            let artPath = path.join(process.cwd(), 'Genders', gen, art)
-            for(let artSong of fs.readdirSync(artPath)){
-                let data = JSON.parse(fs.readFileSync(path.join(artPath, artSong)).toString())
-                _normalize(data.song.text)  
+            let artPath = join(process.cwd(), 'Genders', gen, art)
+            for(let artSong of readdirSync(artPath)){
+                let data = JSON.parse(readFileSync(join(artPath, artSong)).toString())
+                _normalize(data.song.text)
             }
         }
     }
-    
+
 }
 
 
-module.exports = {normalize: normalize}
+export const normalize = normalize

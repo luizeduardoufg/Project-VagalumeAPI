@@ -1,5 +1,5 @@
-const path = require('path')
-const fs   = require('fs')
+import { join } from 'path'
+import { existsSync, writeFileSync as _writeFileSync, mkdirSync, writeFile as _writeFile, mkdir } from 'fs'
 
 
 const mapLang = (lang) => {
@@ -14,11 +14,11 @@ const mapLang = (lang) => {
 let slash = RegExp('/', 'g')
 
 const writeFileSync = (gen, art, songName, mus) => {
-    let songPath = path.join(process.cwd(), 'Genders', gen, art, `${songName.replace(slash, '')}.json`)
-    let artFolderPath = path.join(process.cwd(), 'Genders', gen, art)
+    let songPath = join(process.cwd(), 'Genders', gen, art, `${songName.replace(slash, '')}.json`)
+    let artFolderPath = join(process.cwd(), 'Genders', gen, art)
     if (mus[1] != 1){
         console.log(`The music ${songName} is not brazilian.`)
-        songPath = path.join(process.cwd(), 'Genders', gen, art, `${songName.replace(slash, '')}.txt`)
+        songPath = join(process.cwd(), 'Genders', gen, art, `${songName.replace(slash, '')}.txt`)
     }
     let music = {
         artist: art,
@@ -29,17 +29,17 @@ const writeFileSync = (gen, art, songName, mus) => {
         }
     }
 
-    if (fs.existsSync(artFolderPath)) {
+    if (existsSync(artFolderPath)) {
         try{
-            fs.writeFileSync(songPath, JSON.stringify(music, null, 4))
+            _writeFileSync(songPath, JSON.stringify(music, null, 4))
             console.log('Song ' + songName + ' from artist ' + art + ' written!')
         }catch(err){
             console.log('Error writing file: ', err.message)
         }
     } else {
         try{
-            fs.mkdirSync(artFolderPath, {recursive: true})
-            fs.writeFileSync(songPath, JSON.stringify(music, null, 4))
+            mkdirSync(artFolderPath, {recursive: true})
+            _writeFileSync(songPath, JSON.stringify(music, null, 4))
             console.log('Song ' + songName + ' from artist ' + art + ' written!')
 
         }catch(err){
@@ -50,11 +50,11 @@ const writeFileSync = (gen, art, songName, mus) => {
 
 
 const writeFile = (gen, art, songName, mus) => {
-    let songPath = path.join(process.cwd(), 'Genders', gen, art, `${songName.replace(slash, '')}.json`)
-    let artFolderPath = path.join(process.cwd(), 'Genders', gen, art)
+    let songPath = join(process.cwd(), 'Genders', gen, art, `${songName.replace(slash, '')}.json`)
+    let artFolderPath = join(process.cwd(), 'Genders', gen, art)
     if (mus[1] != 1){
         console.log(`The music ${songName} is not brazilian.`)
-        songPath = path.join(process.cwd(), 'Genders', gen, art, `${songName.replace(slash, '')}.txt`)
+        songPath = join(process.cwd(), 'Genders', gen, art, `${songName.replace(slash, '')}.txt`)
     }
     let music = {
         artist: art,
@@ -65,17 +65,17 @@ const writeFile = (gen, art, songName, mus) => {
         }
     }
 
-    if (fs.existsSync(artFolderPath)) {
-        fs.writeFile(songPath,
+    if (existsSync(artFolderPath)) {
+        _writeFile(songPath,
             JSON.stringify(music, null, 4),
             (err) => {
                 if (err) throw err
                 console.log('Song ' + songName + ' from artist ' + art + ' written!')
             })
     } else {
-        fs.mkdir(artFolderPath, { recursive: true }, err => {
+        mkdir(artFolderPath, { recursive: true }, err => {
             if (err) throw err
-            fs.writeFile(songPath,
+            _writeFile(songPath,
                 JSON.stringify(music, null, 4),
                 (err) => {
                     if (err) throw err
@@ -93,10 +93,8 @@ const removeAccents = (str) => {
 }
 
 
-module.exports = {
-    mapLang: mapLang, 
-    writeFile: writeFile,
-    writeFileSync: writeFileSync,
-    delay: delay,
-    removeAccents: removeAccents,
-}
+export const mapLang = mapLang
+export const writeFile = writeFile
+export const writeFileSync = writeFileSync
+export const delay = delay
+export const removeAccents = removeAccents

@@ -1,6 +1,6 @@
-const https                  = require('https')
-const got                    = require('got');
-const jsdom                  = require("jsdom");
+import { get } from 'https';
+import got from 'got';
+import jsdom from "jsdom";
 const { JSDOM }              = jsdom;
 
 const fetchArt = async (gen) => {
@@ -25,7 +25,7 @@ const fetchArt = async (gen) => {
 const requestArtSongs = (art) => {
     let url = "https://www.vagalume.com.br/" + art + "/index.js"
     return new Promise((resolve, reject) => {
-        https.get(url, res => {
+        get(url, res => {
             let dataChunks = []
             res.on('data', chunk => {
                 dataChunks.push(chunk)
@@ -55,13 +55,13 @@ const requestMusic = (art, song) => {
                 + "&mus=" + song
                 + "&apikey={key}"
     return new Promise((resolve, reject) => {
-        https.get(url, res => {
+        get(url, res => {
             let dataChunks = []
-    
+
             res.on('data', chunk => {
                 dataChunks.push(chunk)
             })
-    
+
             res.on('end', () => {
                 let body = Buffer.concat(dataChunks)
                 try{
@@ -73,7 +73,7 @@ const requestMusic = (art, song) => {
                     reject(err)
                 }
             })
-    
+
             res.on('error', err => {
                 reject(err)
             })
@@ -81,8 +81,6 @@ const requestMusic = (art, song) => {
     })
 }
 
-module.exports = {
-    fetchArt: fetchArt,
-    requestArtSongs: requestArtSongs, 
-    requestMusic: requestMusic
-}
+export const fetchArt = fetchArt;
+export const requestArtSongs = requestArtSongs;
+export const requestMusic = requestMusic;

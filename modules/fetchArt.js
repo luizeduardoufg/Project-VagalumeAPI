@@ -1,8 +1,8 @@
-const got = require('got');
-const jsdom = require("jsdom");
+import got from 'got';
+import jsdom from "jsdom";
 const { JSDOM } = jsdom;
 
-module.exports = async (gen) => {
+export default async (gen) => {
     const url = 'https://www.vagalume.com.br/browse/style/' + gen + '.html'
     const response = await got(url)
     const dom = new JSDOM(response.body)
