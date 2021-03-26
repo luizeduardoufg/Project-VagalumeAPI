@@ -49,7 +49,7 @@ const requestArtSongs = (art) => {
 }
 
 
-const requestMusic = (art, song) => {
+const requestMusic = (art, song, writeForeign=false) => {
     let url = "https://api.vagalume.com.br/search.php"
                 + "?art=" + art
                 + "&mus=" + song
@@ -69,7 +69,7 @@ const requestMusic = (art, song) => {
                     /*COMMENT BELLOW TO SAVE NON BRAZILIAN MUSIC*/
 
                     //lang == 1 == brazilian music
-                    if (body.mus[0].lang !== 1) {
+                    if (body.mus[0].lang !== 1 && writeForeign === false) {
                       throw Error('Song is not brazilian.');
                     }
 

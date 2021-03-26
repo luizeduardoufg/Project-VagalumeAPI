@@ -45,7 +45,7 @@ const main = async () => {
           }
           console.log(gen + '> ' + art + '> ' + `Song> ${song.desc}`);
           try {
-            let mus = await requestMusic(art, song.desc);
+            let mus = await requestMusic(art, song.desc, true);
             writeFileSync(gen, art, song.desc, mus);
           } catch (err) {
             console.log('Error requesting lyrics: ', err.message);

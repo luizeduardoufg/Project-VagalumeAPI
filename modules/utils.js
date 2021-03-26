@@ -102,7 +102,7 @@ const writeFlagOK = gen => {
 const flagOKExists = gen => {
   const path = join(process.cwd(), 'Genders', gen, 'ok.txt');
   if (existsSync(path)) {
-    console.log('Flag OK exists. Moving on to the next gender.');
+    console.log('Flag OK exists on gender ' + gen + '. Moving on to the next gender.');
     return true;
   }
 }
