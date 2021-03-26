@@ -66,6 +66,15 @@ const requestMusic = (art, song) => {
                 let body = Buffer.concat(dataChunks)
                 try{
                     body = JSON.parse(body)
+                    /*COMMENT BELLOW TO SAVE NON BRAZILIAN MUSIC*/
+
+                    //lang == 1 == brazilian music
+                    if (body.mus[0].lang !== 1) {
+                      throw Error('Song is not brazilian.');
+                    }
+
+                    /*COMMENT ABOVE TO SAVE NON BRAZILIAN MUSIC*/
+
                     let mus = [body.mus[0].text, body.mus[0].lang]
                     resolve(mus)
                 }

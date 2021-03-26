@@ -17,7 +17,7 @@ const writeFileSync = (gen, art, songName, mus) => {
     let songPath = join(process.cwd(), 'Genders', gen, art, `${songName.replace(slash, '')}.json`)
     let artFolderPath = join(process.cwd(), 'Genders', gen, art)
     if (mus[1] != 1){
-        console.log(`The music ${songName} is not brazilian.`)
+        console.log(`The music ${gen + '>' + art + '>' + songName} is not brazilian.`)
         songPath = join(process.cwd(), 'Genders', gen, art, `${songName.replace(slash, '')}.txt`)
     }
     let music = {
@@ -32,7 +32,7 @@ const writeFileSync = (gen, art, songName, mus) => {
     if (existsSync(artFolderPath)) {
         try{
             _writeFileSync(songPath, JSON.stringify(music, null, 4))
-            console.log('Song ' + songName + ' from artist ' + art + ' written!')
+            console.log(gen + '> ' + 'Song> ' + songName + ' from artist> ' + art + ' written!')
         }catch(err){
             console.log('Error writing file: ', err.message)
         }
@@ -40,7 +40,7 @@ const writeFileSync = (gen, art, songName, mus) => {
         try{
             mkdirSync(artFolderPath, {recursive: true})
             _writeFileSync(songPath, JSON.stringify(music, null, 4))
-            console.log('Song ' + songName + ' from artist ' + art + ' written!')
+            console.log(gen + '> ' + 'Song> ' + songName + ' from artist> ' + art + ' written!')
 
         }catch(err){
             console.log('Error writing file: ', err.message)
