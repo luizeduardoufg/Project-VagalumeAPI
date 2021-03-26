@@ -50,4 +50,4 @@ const normalize = (gens) => {
 }
 
 
-export const normalize = normalize
+export {normalize};

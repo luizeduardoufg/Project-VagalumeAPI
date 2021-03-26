@@ -18,5 +18,4 @@ const countLetters = async (str) => {
     return letters
 }
 
-export const countWords = countWords
-export const countLetters = countLetters
+export {countLetters, countWords};

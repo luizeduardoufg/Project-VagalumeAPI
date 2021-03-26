@@ -1,8 +1,7 @@
 //Imports
 import { join } from 'path'
 import { existsSync } from 'fs'
-import qtAnalysis from './modules/qtAnalysis.js'
-import { normalize as _normalize } from './modules/normalize.js'
+import { normalize } from './modules/normalize.js'
 import { removeAccents, delay, writeFileSync } from './modules/utils.js'
 import { fetchArt, requestArtSongs, requestMusic } from './modules/api.js'
 
@@ -15,14 +14,15 @@ import { fetchArt, requestArtSongs, requestMusic } from './modules/api.js'
 // new wave, piano rock, pop/punk, pos-punk, post-rock, power-pop, progressivo, psicodelia, punk rock, r&b, reggae,
 // reggaeton, rock alternativo, rockabilly, samba enredo, ska, soft rock, soul music, surf music,tecnopop, trance,
 // trap, trilha sonora, trip-hop, tropical house, trilha sonora, velha guarda, world music.
-let gens = [
+const gens = [
   'axe', 'bossa-nova', 'forro', 'funk', 'funk-carioca','gospel',
   'mpb', 'pagode', 'pop', 'pop-rock', 'rap', 'regional', 'rock',
   'romantico', 'samba', 'sertanejo',
 ]
 
-let replacer = RegExp(' ', 'g')
-let slash = RegExp('/', 'g')
+const replacer = RegExp(' ', 'g')
+const slash = RegExp('/', 'g')
+const __dirname = process.cwd();
 
 const main = async () => {
     for (let gen of gens){
@@ -55,5 +55,5 @@ const main = async () => {
     }
 }
 
-// main()
-_normalize(gens)
+main()
+// normalize(gens)

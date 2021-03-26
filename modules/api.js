@@ -1,7 +1,7 @@
 import { get } from 'https';
 import got from 'got';
 import jsdom from "jsdom";
-const { JSDOM }              = jsdom;
+const { JSDOM } = jsdom;
 
 const fetchArt = async (gen) => {
     const url = 'https://www.vagalume.com.br/browse/style/' + gen + '.html'
@@ -81,6 +81,4 @@ const requestMusic = (art, song) => {
     })
 }
 
-export const fetchArt = fetchArt;
-export const requestArtSongs = requestArtSongs;
-export const requestMusic = requestMusic;
+export {fetchArt, requestArtSongs, requestMusic};

@@ -92,9 +92,4 @@ const removeAccents = (str) => {
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
 }
 
-
-export const mapLang = mapLang
-export const writeFile = writeFile
-export const writeFileSync = writeFileSync
-export const delay = delay
-export const removeAccents = removeAccents
+export {mapLang, writeFile, writeFileSync, delay, removeAccents};

@@ -20,5 +20,6 @@
   "dependencies": {
     "got": "^11.6.0",
     "jsdom": "^16.4.0"
-  }
+  },
+  "type": "module"
 }
