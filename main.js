@@ -8,9 +8,17 @@ import { fetchArt, requestArtSongs, requestMusic } from './modules/api.js'
 
 
 //Variables
+//genders that doesn't have enough brasilian musicians
+//black-music, blues,chillout, classic rock, classico, country, dance, disco, electro swing, electronica, emocore,
+//fado, folk, gotico, grunge, hard rock, hardcore, heavy metal, hip hop,house, indie, industrial, infantil,
+// instrumental, j-pop/j-rock, jazz, jovem guarda, k-pop/k-rock, kizomba, lo-fi, metal, musicas gauchas, new age,
+// new wave, piano rock, pop/punk, pos-punk, post-rock, power-pop, progressivo, psicodelia, punk rock, r&b, reggae,
+// reggaeton, rock alternativo, rockabilly, samba enredo, ska, soft rock, soul music, surf music,tecnopop, trance,
+// trap, trilha sonora, trip-hop, tropical house, trilha sonora, velha guarda, world music.
 let gens = [
-    'axe', 'bossa-nova', 'forro', 'funk', 'funk-carioca',
-    'gospel', 'mpb', 'pagode', 'rap', 'samba', 'sertanejo'
+  'axe', 'bossa-nova', 'forro', 'funk', 'funk-carioca','gospel',
+  'mpb', 'pagode', 'pop', 'pop-rock', 'rap', 'regional', 'rock',
+  'romantico', 'samba', 'sertanejo',
 ]
 
 let replacer = RegExp(' ', 'g')
