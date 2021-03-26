@@ -2,7 +2,7 @@
 import { join } from 'path'
 import { existsSync } from 'fs'
 import { normalize } from './modules/normalize.js'
-import { removeAccents, delay, writeFileSync } from './modules/utils.js'
+import { removeAccents, delay, writeFileSync, flagOKExists, writeFlagOK } from './modules/utils.js'
 import { fetchArt, requestArtSongs, requestMusic } from './modules/api.js'
 
 
@@ -15,14 +15,9 @@ import { fetchArt, requestArtSongs, requestMusic } from './modules/api.js'
 // reggaeton, rock alternativo, rockabilly, samba enredo, ska, soft rock, soul music, surf music,tecnopop, trance,
 // trap, trilha sonora, trip-hop, tropical house, trilha sonora, velha guarda, world music.
 
-// const gens = [
-//   'axe', 'bossa-nova', 'forro', 'funk', 'funk-carioca','gospel',
-//   'mpb', 'pagode', 'pop', 'pop-rock', 'rap', 'regional', 'rock',
-//   'romantico', 'samba', 'sertanejo',
-// ];
-
 const gens = [
-  'pop', 'pop-rock', 'rap', 'regional', 'rock',
+  'axe', 'bossa-nova', 'forro', 'funk', 'funk-carioca', 'gospel',
+  'mpb', 'pagode', 'pop', 'pop-rock', 'rap', 'regional', 'rock',
   'romantico', 'samba', 'sertanejo',
 ];
 
@@ -32,6 +27,7 @@ const __dirname = process.cwd();
 
 const main = async () => {
   for (let gen of gens) {
+    if (flagOKExists(gen)) continue;
     console.log(`Gender> ${gen}`);
     let arts = await fetchArt(gen);
     for (let art of arts) {
@@ -62,6 +58,7 @@ const main = async () => {
         console.log('Error on songs loop: ', e);
       }
     }
+    writeFlagOK(gen);
   }
 }
 
