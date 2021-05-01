@@ -62,5 +62,5 @@ const main = async () => {
   }
 }
 
-main();
-// normalize(gens)
+// main();
+normalize(gens)
