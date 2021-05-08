@@ -2,6 +2,8 @@ import { join } from 'path';
 import { readdirSync, readFileSync } from 'fs';
 import { exit } from 'process';
 
+const SRC = '/mnt/d/Projects/PFC/Project-VagalumeAPI/src/';
+
 const _normalize = (str) => {
   // console.log(str);
   let numberXRegExp = /(\d+)(x)/gi;
@@ -46,12 +48,12 @@ const _normalize = (str) => {
 
 const normalize = (gens) => {
   let count = 0;
-  let x = 7; // X = 4, casos de REFRÃO
+  let x = 8; // X = 4, casos de REFRÃO
   for (let gen of gens) {
-    let genPath = join(process.cwd(), 'Genders', gen)
+    let genPath = join(SRC, 'Genders', gen)
     let arts = readdirSync(genPath)
     for (let art of arts) {
-      let artPath = join(process.cwd(), 'Genders', gen, art)
+      let artPath = join(SRC, 'Genders', gen, art)
       for (let artSong of readdirSync(artPath)) {
         let data = JSON.parse(readFileSync(join(artPath, artSong)).toString())
         if (count === x) _normalize(data.song.text);

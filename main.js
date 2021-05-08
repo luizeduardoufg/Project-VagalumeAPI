@@ -5,6 +5,9 @@ import { normalize } from './modules/normalize.js'
 import { removeAccents, delay, writeFileSync, flagOKExists, writeFlagOK } from './modules/utils.js'
 import { fetchArt, requestArtSongs, requestMusic } from './modules/api.js'
 
+// WLS2 insted of process.cwd(), SRC
+const SRC = '/mnt/d/Projects/PFC/Project-VagalumeAPI/src/';
+
 
 //Variables
 //genders that doesn't have enough brasilian musicians
@@ -23,7 +26,7 @@ const gens = [
 
 const replacer = RegExp(' ', 'g');
 const slash = RegExp('/', 'g');
-const __dirname = process.cwd();
+const __dirname = SRC;
 
 const main = async () => {
   for (let gen of gens) {
@@ -63,4 +66,4 @@ const main = async () => {
 }
 
 // main();
-normalize(gens)
+normalize(gens);

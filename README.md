@@ -3,10 +3,15 @@
 #### Node version: 12.18.3 (nvm href="https://github.com/nvm-sh/nvm")
 #### Operational system:
 * Ubuntu 20.04.1 LTS
+* Windows 10 (w/ WSL2)
 
 #### Exec:
 * On Linux:
 	-  on project's folder run: ```node main```
+
+* On WSL2:
+  - Launch Windows Terminal as admin
+  - on project's folder run: ```node main```
 
 [========]
 
@@ -19,8 +24,8 @@
 	- 1581
 
 * Songs count:
-	- 4524 + 3229 + 11290 + 287 +  
-	
+	- 4524 + 3229 + 11290 + 287 +
+
 
 [========]
 
@@ -237,4 +242,3 @@ Planet Hemp
 Marcelo D2
 Barrerito
 Martin Eustáquio
-
