@@ -21,7 +21,7 @@ const SRC = '/mnt/d/Projects/PFC/Project-VagalumeAPI/src/';
 const gens = [
   'axe', 'bossa-nova', 'forro', 'funk', 'funk-carioca', 'gospel',
   'mpb', 'pagode', 'pop', 'pop-rock', 'rap', 'regional', 'rock',
-  'romantico', 'samba', 'sertanejo',
+  'samba', 'sertanejo',
 ];
 
 const replacer = RegExp(' ', 'g');

@@ -1,5 +1,5 @@
 import { join } from 'path';
-import { readdirSync, readFileSync } from 'fs';
+import { readdirSync, readFileSync, writeFileSync } from 'fs';
 import { exit } from 'process';
 
 const SRC = '/mnt/d/Projects/PFC/Project-VagalumeAPI/src/';
@@ -21,9 +21,12 @@ const _normalize = (str) => {
 
   let splitLines = str.split('\n');
 
+  let finalStr = '';
+
   splitLines.forEach(line => {
     if (line == '') {
-      console.log(line);
+      // console.log(line);
+      finalStr += '\n';
       return line;
     }
     let alpha = /^[a-zà-ú]+$/i;
@@ -37,18 +40,24 @@ const _normalize = (str) => {
 
     if (pontuation[pontLength] == ')' || pontuation[pontLength] == ']' || pontuation[pontLength] == '}') {
       line = line.slice(0, line.length) + '.';
-      console.log(line, pontuation);
+      finalStr += line;
+      // console.log(line, pontuation);
     }
     else {
       line = line.slice(0, line.length - pontuation.length) + '.';
-      console.log(line, pontuation);
+      finalStr += line;
+      // console.log(line, pontuation);
     }
+    finalStr += '\n';
   });
+
+  // console.log(finalStr);
+  return finalStr;
 }
 
 const normalize = (gens) => {
-  let count = 0;
-  let x = 8; // X = 4, casos de REFRÃO
+  // let count = 0;
+  // let x = 0; // X = 4, casos de REFRÃO
   for (let gen of gens) {
     let genPath = join(SRC, 'Genders', gen)
     let arts = readdirSync(genPath)
@@ -56,9 +65,20 @@ const normalize = (gens) => {
       let artPath = join(SRC, 'Genders', gen, art)
       for (let artSong of readdirSync(artPath)) {
         let data = JSON.parse(readFileSync(join(artPath, artSong)).toString())
-        if (count === x) _normalize(data.song.text);
-        count++;
-        if (count > x) exit();
+        // if (count === x) {
+          console.log(gen, ' - ', art, ' - ', artSong);
+          let normalizedSongText = _normalize(data.song.text);
+          data.song.text = normalizedSongText;
+          let songName = artSong.split('.').slice(0, -1).join('.');
+          let slash = RegExp('/', 'g');
+          let songPath = join(artPath, `${songName.replace(slash, '')}.json`);
+          // console.log(songPath);
+          // console.log(songName);
+          // console.log(data);
+          writeFileSync(songPath, JSON.stringify(data, null, 4));
+        // }
+        // count++;
+        // if (count > x) exit();
       }
     }
   }

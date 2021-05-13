@@ -17,6 +17,8 @@
 
 ## Documentação:
 
+- Pagode e samba foram encapsulados em um único gênero: samba.
+
 [========]
 
 ## Dados:
